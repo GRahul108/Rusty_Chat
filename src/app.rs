@@ -28,6 +28,10 @@ pub fn App() -> impl IntoView {
                 .map_err(|_| ServerFnError::ServerError("WebSocket issue".to_string()))
         }
     });
+
+
+
+    
   
     view! {
         // injects a stylesheet into the document <head>
