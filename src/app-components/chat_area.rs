@@ -30,6 +30,13 @@ pub fn TypeArea(send: Action<String, Result<(), ServerFnError>>) -> impl IntoVie
           format!("{TEXT_AREA_CLASS} {TEXT_AREA_CLASS_LIGHT}")
         }
       });
+      let button_class = Signal::derive(move || {
+        if dark_mode.get() {
+          format!("{BUTTON_CLASS} {BUTTON_CLASS_DARK}")
+        } else {
+          format!("{BUTTON_CLASS} {BUTTON_CLASS_LIGHT}")
+        }
+      });
 
     let input_ref = create_node_ref::<Input>();
     view!{
