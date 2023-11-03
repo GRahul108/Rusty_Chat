@@ -23,6 +23,15 @@ pub fn TypeArea(send: Action<String, Result<(), ServerFnError>>) -> impl IntoVie
         format!("{TYPE_AREA_CLASS} {TYPE_AREA_CLASS_LIGHT}")
       }
     });
+    let text_area_class = Signal::derive(move || {
+        if dark_mode.get() {
+          format!("{TEXT_AREA_CLASS} {TEXT_AREA_CLASS_DARK}")
+        } else {
+          format!("{TEXT_AREA_CLASS} {TEXT_AREA_CLASS_LIGHT}")
+        }
+      });
+
+    let input_ref = create_node_ref::<Input>();
     view!{
         <div class={type_area_class.get()}>
            <form class="w-full flex justify-center items-center gap-4" on:submit=move |ev| {
