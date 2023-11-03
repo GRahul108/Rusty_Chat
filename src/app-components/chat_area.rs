@@ -23,3 +23,22 @@ pub fn TypeArea(send: Action<String, Result<(), ServerFnError>>) -> impl IntoVie
         format!("{TYPE_AREA_CLASS} {TYPE_AREA_CLASS_LIGHT}")
       }
     });
+    view!{
+        <div class={type_area_class.get()}>
+           <form class="w-full flex justify-center items-center gap-4" on:submit=move |ev| {
+                ev.prevent_default();
+                let input = input_ref.get().expect("input to exist");
+                send.dispatch(input.value());
+                input.set_value("");
+           }
+           >
+                <input class={text_area_class.get()} type="text" placeholder="Enter your prompt" node_ref=input_ref/>
+                <button class={button_class.get()} type="submit">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
+                    </svg>
+                </button>
+           </form>
+        </div>
+    }
+}
