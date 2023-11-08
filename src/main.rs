@@ -60,6 +60,7 @@ cfg_if! {
             dotenv().ok();
             let model_path = env::var("MODEL_PATH").expect("MODEL_PATH must be set");
             let model_parameters = llm::ModelParameters {
+                n_gqa: Some(42),
                 prefer_mmap: true,
                 context_size: 2048,
                 lora_adapters: None,

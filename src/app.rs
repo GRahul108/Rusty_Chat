@@ -1,13 +1,20 @@
 use leptos::*;
 use leptos_meta::*;
-use leptos_router::*;
+
+mod components;
+use components::chat_area::ChatArea;
+use components::type_area::TypeArea;
+
+use crate::api::converse;
+use crate::model::conversation::{Conversation, Message};
 
 #[component]
-pub fn App() -> impl IntoView {
-    // Provides context that manages stylesheets, titles, meta tags, etc.
-    provide_meta_context();
-    let (conversation, set_conversation) = create_signal(Conversation::new());
-    let send = create_action(move |new_message: &String| {
+pub fn App(cx: Scope) -> impl IntoView {
+    provide_meta_context(cx);
+
+    let (conversation, set_conversation) = create_signal(cx, Conversation::new());
+
+    let send = create_action(cx, move |new_message: &String| {
         let user_message = Message {
             text: new_message.clone(),
             user: true,
@@ -15,36 +22,34 @@ pub fn App() -> impl IntoView {
         set_conversation.update(move |c| {
             c.messages.push(user_message);
         });
+        converse(cx, conversation.get())
+    });
 
-        let client2 = client.clone();
-        let msg = new_message.to_string();
-        async move {
-            client2
-                .borrow_mut()
-                .as_mut()
-                .unwrap()
-                .send(Txt(msg.to_string()))
-                .await
-                .map_err(|_| ServerFnError::ServerError("WebSocket issue".to_string()))
+    create_effect(cx, move |_| {
+        if let Some(_) = send.input().get() {
+            let model_message = Message {
+                text: String::from("..."),
+                user: false,
+            };
+
+            set_conversation.update(move |c| {
+                c.messages.push(model_message);
+            });
         }
     });
 
-    view! {
-        // injects a stylesheet into the document <head>
-        // id=leptos means cargo-leptos will hot-reload this stylesheet
+    create_effect(cx, move |_| {
+        if let Some(Ok(response)) = send.value().get() {
+            set_conversation.update(move |c| {
+                c.messages.last_mut().unwrap().text = response;
+            });
+        }
+    });
+
+    view! { cx,
         <Stylesheet id="leptos" href="/pkg/leptos_start.css"/>
-
-        // sets the document title
-        <Title text="Rusty Chat"/>
-        <ChatArea/>
-        <TypeArea/>
-
-       >
+        <Title text="Rusty_Chat"/>
+        <ChatArea conversation/>
+        <TypeArea send/>
     }
-
-
-
 }
-
-
-
