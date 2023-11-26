@@ -52,6 +52,4 @@ run npx tailwindcss -i ./input.css -o ./style/output.css --watch in a terminal -
 cargo leptos watch in the project directory.
 In in your browser, navigate to http://localhost:3000/?
 
-1. The server binary located in `target/server/release`
-2. The `site` directory and all files within located in `target/site`
 
