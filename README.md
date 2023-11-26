@@ -39,13 +39,11 @@ By default, `cargo-leptos` uses `nightly` Rust, `cargo-generate`, and `sass`. If
 3. `cargo install cargo-generate` - install `cargo-generate` binary (should be installed automatically in future)
 4. `npm install -g sass` - install `dart-sass` (should be optional in future)
 
-## Executing a Server on a Remote Machine Without the Toolchain
-After running a `cargo leptos build --release` the minimum files needed are:
 
-TailwindCSS
+##Install TailwindCSS
 Install TailwindCSS with `npm install -D tailwindcss`
 
-Run
+##Run
 To run the project locally,
 
 `run npx tailwindcss -i ./input.css -o ./style/output.css --watch ` in a terminal - this will build style/output.css and automatically rebuild when a change is detected in input.css
