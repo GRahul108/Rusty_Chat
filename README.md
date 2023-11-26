@@ -43,7 +43,7 @@ By default, `cargo-leptos` uses `nightly` Rust, `cargo-generate`, and `sass`. If
 ## Install TailwindCSS
 Install TailwindCSS with `npm install -D tailwindcss`
 
-## Run
+## Run The App
 To run the project locally,
 
 `run npx tailwindcss -i ./input.css -o ./style/output.css --watch ` in a terminal - this will build style/output.css and automatically rebuild when a change is detected in input.css
