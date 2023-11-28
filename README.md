@@ -13,11 +13,7 @@ If you don't have `cargo-leptos` installed you can install it with
 
 `cargo install cargo-leptos`
 
-Then run
 
-`cargo leptos new --git leptos-rs/start`
-
-to generate a new project template (you will be prompted to enter a project name).
 
 
 ## Installing Additional Tools
@@ -32,6 +28,9 @@ By default, `cargo-leptos` uses `nightly` Rust, `cargo-generate`, and `sass`. If
 
 ## Install TailwindCSS
 Install TailwindCSS with `npm install -D tailwindcss`
+
+## Download LLMA
+After downloading the language model update the path in .env folder.
 
 ## Run The App
 To run the project locally,
